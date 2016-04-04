@@ -1,0 +1,48 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="rj.site">
+
+  <includeDependencies package="." />
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include package=".browser" />
+
+
+  <genericsetup:registerProfile
+      name="default"
+      title="rj.site"
+      directory="profiles/default"
+      description="Installs the rj.site add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="rj.site-postInstall"
+      title="rj.site post_install import step"
+      description="Post install import step from rj.site"
+      handler=".setuphandlers.post_install">
+  </genericsetup:importStep>
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="rj.site"
+      directory="profiles/uninstall"
+      description="Uninstalls the rj.site add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="rj.site-uninstall"
+      title="rj.site uninstall import step"
+      description="Import step run during ininstalling rj.site"
+      handler=".setuphandlers.uninstall">
+  </genericsetup:importStep>
+
+  <utility component="plone.memoize.compress.xhtmlslimmer"
+           provides="plone.memoize.interfaces.IXHTMLCompressor" />
+
+</configure>
